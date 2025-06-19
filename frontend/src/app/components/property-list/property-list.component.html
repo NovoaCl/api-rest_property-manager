@@ -1,0 +1,56 @@
+<div class="container">
+  <h1>Real Estate Property Manager</h1>
+
+  <button class="add-button" (click)="onAddPropertyClick()">Add New Property</button>
+
+  <div *ngIf="selectedProperty !== null" class="form-section">
+    <h2>{{ isEditing ? 'Edit Property' : 'Add New Property' }}</h2>
+    <app-property-form
+      [property]="selectedProperty"
+      [isEditing]="isEditing"
+      (formSubmitted)="onFormSubmit($event)"
+      (formCancelled)="cancelForm()">
+    </app-property-form>
+  </div>
+
+  <h2>Property List</h2>
+  <div *ngIf="properties.length === 0; else propertyTable" class="no-properties">
+    No properties found. Add a new one!
+  </div>
+
+  <ng-template #propertyTable>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Type</th>
+          <th>Rooms</th>
+          <th>Baths</th>
+          <th>Balcony</th>
+          <th>Sq. Meters</th>
+          <th>Address</th>
+          <th>Price</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let property of properties">
+          <td>{{ property.id }}</td>
+          <td>{{ property.propertyType }}</td>
+          <td>{{ property.numberOfRooms }}</td>
+          <td>{{ property.numberOfBathrooms }}</td>
+          <td>{{ property.hasBalcony ? 'Yes' : 'No' }}</td>
+          <td>{{ property.squareMeters | number:'1.0-2' }}</td>
+          <td>{{ property.address }}</td>
+          <td>{{ property.price | currency:'USD':'symbol':'1.2-2' }}</td>
+          <td>{{ property.status }}</td>
+          <td>
+            <button class="edit-button" (click)="editProperty(property)">Edit</button>
+            <button class="delete-button" (click)="deleteProperty(property.id!)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-template>
+</div>
