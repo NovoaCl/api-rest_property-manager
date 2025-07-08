@@ -13,3 +13,5 @@ POST    /api/properties
 PUT    /api/properties/{id}
 DELETE    /api/properties/{id}
 ```
+![image](1.png)
+![image](2.png)
